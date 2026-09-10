@@ -1,8 +1,13 @@
 # TILT
 
-**T**rajectory-**I**mproving **L**earning with **T**ilting — robust sim-to-real-oriented RL
-for quadrotor hovering, built on the [Genesis](https://github.com/Genesis-Embodied-AI/Genesis)
-physics simulator and `rsl_rl` PPO.
+**T**ail-Aware **I**terative **L**earning via **T**ilting — robust sim-to-real-oriented RL
+for quadrotor hovering, built on the
+[Genesis](https://github.com/Genesis-Embodied-AI/Genesis) physics simulator and
+[rsl_rl](https://github.com/leggedrobotics/rsl_rl) PPO implementation.
+
+[Method](#1-method-overview) · [Installation](#3-requirements-and-installation) ·
+[Quick start](#4-quick-start) · [Evaluation](#6-evaluation) ·
+[Related repositories](#13-related-repositories-and-attribution)
 
 This folder is a minimal, self-contained release of the paper's main method
 (Table III, row "TILT (ours)"): entropic-risk domain randomization with a
@@ -70,13 +75,16 @@ TILT/
 │                   #   mirror-symmetric obs/actions, deterministic eval tables.
 ├── hover_eval.py   # Evaluation tools: Sobol-grid robustness test, single-env
 │                   #   viewer, multi-method head-to-head comparison table.
-└── README.md       # This file.
+├── requirements.txt # Pinned runtime dependencies (except PyTorch).
+├── THIRD_PARTY.md  # Upstream projects and attribution links.
+├── .gitignore      # Excludes checkpoints, logs, caches, and local environments.
+└── README.md       # Documentation and reproduction guide.
 ```
 
 The three `hover_*.py` files are copied unmodified from the paper's codebase,
-so this release reproduces the published protocol exactly.
+so this release reproduces the reported protocol exactly.
 
-## 3. Requirements
+## 3. Requirements and installation
 
 - **GPU:** one NVIDIA GPU. Tested on RTX 3090 (24 GB), driver 580.173.02.
   Training (1024 envs) uses ~2 GB; the 4096-env evaluation scene is the
@@ -104,8 +112,8 @@ conda activate tilt
 # 2. Install PyTorch (CUDA 12.8 build)
 pip install torch==2.11.0 --index-url https://download.pytorch.org/whl/cu128
 
-# 3. Install simulator + RL dependencies (tensordict etc. come with genesis)
-pip install genesis-world==1.3.3 rsl-rl-lib==5.3.0 tensorboard
+# 3. Install the remaining pinned dependencies
+pip install -r requirements.txt
 ```
 
 ## 4. Quick start
@@ -258,7 +266,26 @@ TILT's cross-seed variance is an order of magnitude smaller, and its worst
 10% of DR points retain a return above 2.5 on every seed, while
 conventional DR's tail collapses toward zero on some seeds.
 
-## 13. Troubleshooting
+## 13. Related repositories and attribution
+
+This implementation builds on the following open-source projects. Please cite
+and acknowledge the corresponding upstream projects when reusing their code:
+
+- [Genesis](https://github.com/Genesis-Embodied-AI/Genesis) — GPU-accelerated
+  physics simulation and the Crazyflie model. The environment structure is
+  adapted from the official
+  [quadrotor hovering example](https://github.com/Genesis-Embodied-AI/genesis-world/blob/main/examples/drone/hover_train.py).
+- [rsl_rl](https://github.com/leggedrobotics/rsl_rl) — PPO runner, model base
+  classes, and neural-network utilities.
+- [PyTorch](https://github.com/pytorch/pytorch) — tensor computation,
+  optimization, and Sobol sequence generation.
+
+See [THIRD_PARTY.md](THIRD_PARTY.md) for a compact dependency and attribution
+record. TILT-specific method code, experiment settings, and modifications are
+contained in this repository; upstream projects retain their respective
+licenses.
+
+## 14. Troubleshooting
 
 - **CUDA OOM during the 4096-pt eval.** Close other GPU processes; the eval
   scene is the peak allocation. The round-loop teardown already returns all
