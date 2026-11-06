@@ -243,13 +243,17 @@ def evaluate_on_param_grid(env, action_fn, episodes_per_env=1, reset_fn=None):
             cumulative += rews
 
             done_envs = dones.nonzero(as_tuple=False).reshape(-1)
-            for idx in done_envs:
-                idx_i = idx.item()
-                env_reward_sums[idx_i].append(cumulative[idx].item())
-                cumulative[idx] = 0.0
-                done_count[idx] += 1
-            if reset_fn is not None and len(done_envs) > 0:
-                reset_fn(done_envs)
+            if done_envs.numel() > 0:
+                # Transfer the completed batch once instead of synchronizing
+                # separately for every environment via Tensor.item().
+                done_envs_cpu = done_envs.cpu().tolist()
+                completed_rewards = cumulative[done_envs].cpu().tolist()
+                for idx_i, reward in zip(done_envs_cpu, completed_rewards):
+                    env_reward_sums[idx_i].append(reward)
+                cumulative[done_envs] = 0.0
+                done_count[done_envs] += 1
+                if reset_fn is not None:
+                    reset_fn(done_envs)
 
             if (done_count >= episodes_per_env).all():
                 break
