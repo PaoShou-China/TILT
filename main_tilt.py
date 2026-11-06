@@ -42,10 +42,8 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
                         help="Evaluate an existing final checkpoint without training.")
     parser.add_argument("--force", action="store_true",
                         help="Train even if the final checkpoint already exists.")
-    args = parser.parse_args(argv)
-    if args.seed < 0:
-        parser.error("--seed must be non-negative")
-    return args
+    # Preserve the historical seed semantics; backend RNGs validate seeds.
+    return parser.parse_args(argv)
 
 
 def main(argv: list[str] | None = None) -> None:
