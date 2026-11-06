@@ -368,7 +368,7 @@ def run_entropic_dr_training(
     exp_name, algo, num_envs, num_eval_envs, iterations_per_round,
     total_rounds, episodes_per_eval, eval_sample_method, seed,
     label, build_env, use_tilt=True, fixed_beta=False,
-    policy_arch="mlp", alg_cfg_extra=None, weights_fn=None,
+    policy_arch="mlp", alg_cfg_extra=None, weights_fn=None, log_dir=None,
 ):
     """Iterative entropic-risk DR loop: build env -> sample θ~q(θ) -> PPO ->
     eval on fixed grid -> entropic weights + dual-β update.
@@ -386,7 +386,10 @@ def run_entropic_dr_training(
         the same contract (rewards, beta, beta_lr, dual_update) ->
         (weights, beta, kl, ess) — used by the Famou proxy evaluator.
     """
-    log_dir = f"logs/{exp_name}_{algo}"
+    # Keep historical output naming unless the caller explicitly selects
+    # a run directory. This lets the CLI's --log-dir control both training
+    # and evaluation while preserving existing direct-call behavior.
+    log_dir = os.fspath(log_dir) if log_dir is not None else f"logs/{exp_name}_{algo}"
     os.makedirs(log_dir, exist_ok=True)  # cfgs.pkl / state.pkl / models
     train_cfg = get_train_cfg(exp_name + f"_{algo}", policy_arch=policy_arch,
                               alg_cfg_extra=alg_cfg_extra)
