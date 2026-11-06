@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+<title id="title">TILT quadrotor hover under randomized dynamics</title>
+<desc id="desc">A quadrotor holds a hover point while a set of parameter samples and a softly tilted contour represent dynamics randomization and robustness evaluation.</desc>
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f7faf9"/><stop offset="1" stop-color="#e6f1ee"/></linearGradient>
+ <linearGradient id="hull" x1="0" x2="1"><stop stop-color="#173b4a"/><stop offset="1" stop-color="#287b78"/></linearGradient>
+ <radialGradient id="glow"><stop stop-color="#efb66b" stop-opacity=".34"/><stop offset="1" stop-color="#efb66b" stop-opacity="0"/></radialGradient>
+ <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse"><path d="M36 0H0V36" fill="none" stroke="#bfd2cf" stroke-width="1" opacity=".52"/></pattern>
+</defs>
+<rect width="1200" height="620" rx="28" fill="url(#bg)"/>
+<rect width="1200" height="620" rx="28" fill="url(#grid)" opacity=".72"/>
+<circle cx="660" cy="290" r="230" fill="url(#glow)"/>
+<!-- parameter-space contour -->
+<path d="M650 84c116 0 209 77 218 177 8 94-57 205-159 238-94 30-211-3-270-80-59-76-60-186-8-260 48-68 130-75 219-75Z" fill="none" stroke="#287b78" stroke-width="2" stroke-dasharray="7 9" opacity=".55"/>
+<path d="M649 120c90-1 165 58 174 136 10 82-45 165-125 191-74 25-167 0-213-59-45-58-46-142-7-199 38-55 101-68 171-69Z" fill="none" stroke="#287b78" stroke-width="2" opacity=".38"/>
+<!-- sample points -->
+<g fill="#287b78" opacity=".72"><circle cx="470" cy="157" r="5"/><circle cx="520" cy="112" r="4"/><circle cx="760" cy="116" r="4"/><circle cx="849" cy="206" r="5"/><circle cx="832" cy="378" r="4"/><circle cx="721" cy="481" r="5"/><circle cx="530" cy="430" r="4"/><circle cx="437" cy="315" r="5"/></g>
+<g fill="#efaa55"><circle cx="584" cy="83" r="5"/><circle cx="881" cy="291" r="5"/><circle cx="650" cy="505" r="5"/></g>
+<!-- hover target -->
+<ellipse cx="650" cy="422" rx="122" ry="27" fill="#173b4a" opacity=".08"/>
+<ellipse cx="650" cy="412" rx="108" ry="21" fill="none" stroke="#287b78" stroke-width="2"/>
+<ellipse cx="650" cy="412" rx="64" ry="12" fill="none" stroke="#287b78" stroke-width="2" opacity=".65"/>
+<circle cx="650" cy="412" r="6" fill="#efaa55"/>
+<!-- vehicle shadow/vertical indication -->
+<path d="M650 248V391" stroke="#287b78" stroke-width="2" stroke-dasharray="5 7" opacity=".55"/>
+<!-- quadrotor arms -->
+<g stroke="url(#hull)" stroke-width="13" stroke-linecap="round">
+ <path d="M560 214 624 248"/><path d="M740 214 676 248"/>
+ <path d="M560 214 624 179"/><path d="M740 214 676 179"/>
+</g>
+<g fill="#f7faf9" stroke="#173b4a" stroke-width="4">
+ <ellipse cx="548" cy="207" rx="50" ry="9"/><ellipse cx="752" cy="207" rx="50" ry="9"/>
+ <ellipse cx="548" cy="170" rx="50" ry="9"/><ellipse cx="752" cy="170" rx="50" ry="9"/>
+</g>
+<g fill="#287b78"><circle cx="548" cy="207" r="6"/><circle cx="752" cy="207" r="6"/><circle cx="548" cy="170" r="6"/><circle cx="752" cy="170" r="6"/></g>
+<path d="M618 223q32-30 64 0v39q-32 30-64 0Z" fill="url(#hull)"/>
+<circle cx="650" cy="242" r="7" fill="#efaa55"/>
+<!-- wind and response strokes -->
+<path d="M330 183c38-20 74-20 110 0m-129 22c31-15 60-15 90 0m427 20c35-19 70-19 106 0" fill="none" stroke="#77a9a4" stroke-width="3" stroke-linecap="round" opacity=".75"/>
+<path d="M302 361c34 0 58-17 76-50m445 124c36 1 61-16 78-48" fill="none" stroke="#df9860" stroke-width="3" stroke-dasharray="4 8" stroke-linecap="round" opacity=".78"/>
+<!-- labels -->
+<g font-family="Inter,Arial,sans-serif" fill="#173b4a">
+ <text x="104" y="112" font-size="17" font-weight="700" letter-spacing="2.4">DYNAMICS PARAMETER SPACE</text>
+ <text x="104" y="144" font-size="14" fill="#55737a">samples across randomized conditions</text>
+ <text x="805" y="506" font-size="17" font-weight="700" letter-spacing="2">HOVER REFERENCE</text>
+ <text x="805" y="532" font-size="14" fill="#55737a">robustness evaluated over a fixed grid</text>
+</g>
+<g fill="none" stroke="#173b4a" stroke-width="2" opacity=".35">
+ <path d="M312 121h85l92 42"/><path d="M788 454h52l62 45"/>
+</g>
+</svg>
