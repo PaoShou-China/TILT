@@ -42,33 +42,49 @@ EVAL_MAX_STEPS = 1500
 LOG_DIR = f"logs/{EXP_NAME}_{ALGO}"
 
 
+def parse_args():
+    parser = argparse.ArgumentParser(description="Train and evaluate TILT.")
+    parser.add_argument("--seed", type=int, default=SEED, help="Training seed.")
+    parser.add_argument("--log-dir", default=None, help="Output directory (default: logs/TILT_s<seed>).")
+    parser.add_argument("--eval-only", action="store_true", help="Evaluate an existing final checkpoint without training.")
+    parser.add_argument("--force", action="store_true", help="Train even if the final checkpoint already exists.")
+    return parser.parse_args()
+
+
 def main():
+    args = parse_args()
+    seed = args.seed
+    log_dir = args.log_dir or f"logs/{EXP_NAME}_s{seed}"
     # Skip-if-done guard: round 1 of run_entropic_dr_training wipes the log
     # dir, so the check MUST happen here (final ckpt = 20 rounds x 50 iters).
-    final_ckpt = f"{LOG_DIR}/model_{TOTAL_ROUNDS * ITERATIONS_PER_ROUND}.pt"
-    if os.path.exists(final_ckpt):
+    final_ckpt = f"{log_dir}/model_{TOTAL_ROUNDS * ITERATIONS_PER_ROUND}.pt"
+    if args.eval_only:
+        if not os.path.exists(final_ckpt):
+            raise FileNotFoundError(f"--eval-only requested but checkpoint not found: {final_ckpt}")
+        print(f"[eval-only] using checkpoint: {final_ckpt}")
+    elif os.path.exists(final_ckpt) and not args.force:
         print(f"[skip training] final checkpoint exists: {final_ckpt}")
     else:
         run_entropic_dr_training(
-            exp_name=EXP_NAME, algo=ALGO,
+            exp_name=EXP_NAME, algo=f"s{seed}",
             num_envs=NUM_ENVS, num_eval_envs=NUM_EVAL_ENVS,
             iterations_per_round=ITERATIONS_PER_ROUND,
             total_rounds=TOTAL_ROUNDS,
             episodes_per_eval=EPISODES_PER_EVAL,
-            eval_sample_method="sobol", seed=SEED,
-            label=f"TILT (entropic DR + SSE p=0.9) seed {SEED}",
+            eval_sample_method="sobol", seed=seed,
+            label=f"TILT (entropic DR + SSE p=0.9) seed {seed}",
             build_env=lambda n, dr_cfg: HoverEnv(
                 num_envs=n, show_viewer=False, dr_cfg=dr_cfg,
                 include_log_arm_scale=True),
             policy_arch="scale",
         )
     stats = final_robustness_eval(
-        LOG_DIR, num_envs=NUM_EVAL_ENVS, episodes=EVAL_EPISODES,
+        log_dir, num_envs=NUM_EVAL_ENVS, episodes=EVAL_EPISODES,
         max_steps=EVAL_MAX_STEPS, seed=EVAL_SEED,
         include_log_arm_scale=True,
     )
     print(f"\nTILT final robustness eval (Sobol {NUM_EVAL_ENVS} pts, "
-          f"seed {EVAL_SEED}, turbulence ON) -> {LOG_DIR}/final_eval.json")
+          f"seed {EVAL_SEED}, turbulence ON) -> {log_dir}/final_eval.json")
     for k in ("mean", "median", "std", "min", "p10", "cvar_10", "cvar_05"):
         print(f"  {k:>8}: {stats[k]:.4f}")
 
