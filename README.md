@@ -120,6 +120,9 @@ pip install -r requirements.txt
 ```bash
 cd TILT
 python main_tilt.py            # train seed 1 + final robustness eval
+python main_tilt.py --seed 2  # select another training seed
+python main_tilt.py --eval-only --seed 1  # evaluate an existing final checkpoint
+python main_tilt.py --force --seed 1  # retrain despite an existing final checkpoint
 ```
 
 Use a different training seed:
