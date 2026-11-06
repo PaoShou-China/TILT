@@ -2,11 +2,9 @@
 
 **Tail-Aware Iterative Learning via Tilting** is a Genesis-based quadrotor hover-control project. It combines PPO with iterative domain-randomization reweighting, a scale-conditioned policy, and stochastic scale exposure.
 
-[Project homepage](https://paoshou-china.github.io/TILT/) · [Quick start](#quick-start) · [Method](#method-overview) · [Evaluation](#evaluation) · [Source](https://github.com/PaoShou-China/TILT)
+[Academic project homepage](https://paoshou-china.github.io/TILT/) · [Quick start](#quick-start) · [Method](#method-overview) · [Evaluation](#evaluation) · [Source](https://github.com/PaoShou-China/TILT)
 
-![TILT method schematic: entropic-risk parameter reweighting, scale feature x_s = log(L/L0), stochastic scale exposure during training, and scale concatenation through the MLP](assets/tilt-hero.svg)
-
-[Source homepage](index.html).
+![Conceptual method schematic: entropic-risk parameter reweighting, log arm-scale feature, stochastic scale exposure during training, and scale concatenation through the MLP; no measured results shown.](assets/tilt-hero.svg)
 
 ## Method overview
 
