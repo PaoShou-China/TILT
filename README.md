@@ -4,9 +4,9 @@
 
 [Project homepage](https://paoshou-china.github.io/TILT/) · [Quick start](#quick-start) · [Method](#method-overview) · [Evaluation](#evaluation) · [Source](https://github.com/PaoShou-China/TILT)
 
-![TILT quadrotor hover under randomized dynamics](assets/tilt-hero.svg)
+![TILT method schematic: entropic-risk parameter reweighting, scale feature x_s = log(L/L0), stochastic scale exposure during training, and scale concatenation through the MLP](assets/tilt-hero.svg)
 
-> The GitHub Pages URL above requires Pages deployment to be enabled for this repository. The source homepage is [index.html](index.html).
+[Source homepage](index.html).
 
 ## Method overview
 
