@@ -46,7 +46,7 @@ python main_tilt.py --eval-only --log-dir /path/to/TILT_s2
 
 The final-checkpoint guard skips training when the expected checkpoint exists. `--force` bypasses that guard and calls the training routine. The trainer can resume from its saved `state.pkl`; for a clean run with the same seed, first move or remove that seed's log directory. Do not use `--force` as a log-cleaning command.
 
-`--log-dir` is intended for locating an existing run in `--eval-only` mode. Training output is stored under `logs/TILT_s<seed>/`.
+`--log-dir` selects the run directory for both training and evaluation. Without it, training output is stored under `logs/TILT_s<seed>/`.
 
 ## Evaluation
 
