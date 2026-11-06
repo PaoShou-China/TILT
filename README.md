@@ -88,7 +88,7 @@ The standard entry point in `main_tilt.py` sets:
 | Final episode cap | 1,500 steps |
 | SSE scale keep probability | 0.9 by default |
 
-Training seed defaults to 1 and can be selected with `--seed`. The mid-training evaluation grid is used by the reweighting loop; final evaluation uses the fixed evaluation setup described above. The code writes a configuration snapshot and per-round state/history alongside checkpoints.
+Training seed defaults to 1 and can be selected with `--seed`. `tilt_config.py` centralizes these protocol defaults, validates the evaluation/training counts, and resolves the default run directory and final checkpoint path. The mid-training evaluation grid is used by the reweighting loop; final evaluation uses the fixed evaluation setup described above. The code writes a configuration snapshot and per-round state/history alongside checkpoints.
 
 ## Repository layout
 
