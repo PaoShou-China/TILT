@@ -73,6 +73,7 @@ def main(argv: list[str] | None = None) -> None:
                 num_envs=n, show_viewer=False, dr_cfg=dr_cfg,
                 include_log_arm_scale=True),
             policy_arch="scale",
+            log_dir=str(log_dir),
         )
 
     stats = final_robustness_eval(
