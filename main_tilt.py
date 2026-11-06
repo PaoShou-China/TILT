@@ -21,6 +21,7 @@ Training seed: env var TILT_SEED (default 1).
 Run:  python main_tilt.py
 """
 import os
+import argparse
 
 os.environ.setdefault("SCALE_KEEP_P", "0.9")  # SSE scale-exposure probability
 
