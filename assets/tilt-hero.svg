@@ -1,51 +1,82 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
-<title id="title">TILT quadrotor hover under randomized dynamics</title>
-<desc id="desc">A quadrotor holds a hover point while a set of parameter samples and a softly tilted contour represent dynamics randomization and robustness evaluation.</desc>
+<title id="title">TILT risk-aware training and scale-conditioned policy schematic</title>
+<desc id="desc">A method figure showing dynamics parameters reweighted by entropic risk, a log arm-scale feature concatenated through an MLP, and stochastic scale exposure during training with true scale restored for evaluation.</desc>
 <defs>
- <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f7faf9"/><stop offset="1" stop-color="#e6f1ee"/></linearGradient>
- <linearGradient id="hull" x1="0" x2="1"><stop stop-color="#173b4a"/><stop offset="1" stop-color="#287b78"/></linearGradient>
- <radialGradient id="glow"><stop stop-color="#efb66b" stop-opacity=".34"/><stop offset="1" stop-color="#efb66b" stop-opacity="0"/></radialGradient>
- <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse"><path d="M36 0H0V36" fill="none" stroke="#bfd2cf" stroke-width="1" opacity=".52"/></pattern>
+ <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fbfcfa"/><stop offset="1" stop-color="#edf3f1"/></linearGradient>
+ <marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0 9 4.5 0 9Z" fill="#42676a"/></marker>
+ <style>
+  text{font-family:Inter,Arial,sans-serif;fill:#19373c}.muted{fill:#5f7779}.small{font-size:15px}.label{font-size:16px;font-weight:700;letter-spacing:.035em}.head{font-size:24px;font-weight:700}.math{font-family:Georgia,serif;font-size:21px}.flow{stroke:#42676a;stroke-width:2;fill:none;marker-end:url(#arrow)}.soft{stroke:#71908a;stroke-width:1.5;fill:none;stroke-dasharray:5 6}.box{fill:#fff;stroke:#d3e0dc;stroke-width:1.5}
+ </style>
 </defs>
-<rect width="1200" height="620" rx="28" fill="url(#bg)"/>
-<rect width="1200" height="620" rx="28" fill="url(#grid)" opacity=".72"/>
-<circle cx="660" cy="290" r="230" fill="url(#glow)"/>
-<!-- parameter-space contour -->
-<path d="M650 84c116 0 209 77 218 177 8 94-57 205-159 238-94 30-211-3-270-80-59-76-60-186-8-260 48-68 130-75 219-75Z" fill="none" stroke="#287b78" stroke-width="2" stroke-dasharray="7 9" opacity=".55"/>
-<path d="M649 120c90-1 165 58 174 136 10 82-45 165-125 191-74 25-167 0-213-59-45-58-46-142-7-199 38-55 101-68 171-69Z" fill="none" stroke="#287b78" stroke-width="2" opacity=".38"/>
-<!-- sample points -->
-<g fill="#287b78" opacity=".72"><circle cx="470" cy="157" r="5"/><circle cx="520" cy="112" r="4"/><circle cx="760" cy="116" r="4"/><circle cx="849" cy="206" r="5"/><circle cx="832" cy="378" r="4"/><circle cx="721" cy="481" r="5"/><circle cx="530" cy="430" r="4"/><circle cx="437" cy="315" r="5"/></g>
-<g fill="#efaa55"><circle cx="584" cy="83" r="5"/><circle cx="881" cy="291" r="5"/><circle cx="650" cy="505" r="5"/></g>
-<!-- hover target -->
-<ellipse cx="650" cy="422" rx="122" ry="27" fill="#173b4a" opacity=".08"/>
-<ellipse cx="650" cy="412" rx="108" ry="21" fill="none" stroke="#287b78" stroke-width="2"/>
-<ellipse cx="650" cy="412" rx="64" ry="12" fill="none" stroke="#287b78" stroke-width="2" opacity=".65"/>
-<circle cx="650" cy="412" r="6" fill="#efaa55"/>
-<!-- vehicle shadow/vertical indication -->
-<path d="M650 248V391" stroke="#287b78" stroke-width="2" stroke-dasharray="5 7" opacity=".55"/>
-<!-- quadrotor arms -->
-<g stroke="url(#hull)" stroke-width="13" stroke-linecap="round">
- <path d="M560 214 624 248"/><path d="M740 214 676 248"/>
- <path d="M560 214 624 179"/><path d="M740 214 676 179"/>
+<rect width="1200" height="620" rx="24" fill="url(#paper)"/>
+<text x="58" y="55" class="label" fill="#287b78">TILT · METHOD SCHEMATIC</text>
+<text x="58" y="91" class="head">Risk reweighting and scale-conditioned control</text>
+<text x="1142" y="56" text-anchor="end" class="small muted">Architecture diagram · no measured data shown</text>
+
+<!-- top row: adaptive environment distribution -->
+<rect x="52" y="125" width="1096" height="154" rx="16" class="box"/>
+<text x="78" y="158" class="label">1 · ADAPT THE TRAINING DISTRIBUTION</text>
+<g transform="translate(95 180)">
+ <text x="0" y="12" class="small muted">Sobol parameter grid θ</text>
+ <g fill="#287b78" opacity=".6"><circle cx="15" cy="40" r="4"/><circle cx="45" cy="40" r="4"/><circle cx="75" cy="40" r="4"/><circle cx="105" cy="40" r="4"/><circle cx="15" cy="68" r="4"/><circle cx="45" cy="68" r="4"/><circle cx="75" cy="68" r="4"/><circle cx="105" cy="68" r="4"/></g>
 </g>
-<g fill="#f7faf9" stroke="#173b4a" stroke-width="4">
- <ellipse cx="548" cy="207" rx="50" ry="9"/><ellipse cx="752" cy="207" rx="50" ry="9"/>
- <ellipse cx="548" cy="170" rx="50" ry="9"/><ellipse cx="752" cy="170" rx="50" ry="9"/>
+<path d="M259 220H321" class="flow"/>
+<rect x="336" y="180" width="192" height="78" rx="10" fill="#f2f7f5" stroke="#cddbd7"/>
+<text x="432" y="208" text-anchor="middle" class="label">Policy evaluation</text>
+<text x="432" y="235" text-anchor="middle" class="small muted">return R(θ)</text>
+<path d="M536 220H598" class="flow"/>
+<rect x="613" y="180" width="253" height="78" rx="10" fill="#f2f7f5" stroke="#cddbd7"/>
+<text x="739" y="207" text-anchor="middle" class="math">q(θ) ∝ exp(−β R(θ))</text>
+<text x="739" y="235" text-anchor="middle" class="small muted">dual β controls KL(q ‖ uniform)</text>
+<path d="M874 220H936" class="flow"/>
+<g transform="translate(962 181)">
+ <text x="0" y="12" class="small muted">Next PPO round</text>
+ <g fill="#287b78" opacity=".45"><circle cx="15" cy="42" r="3"/><circle cx="46" cy="42" r="3"/><circle cx="88" cy="42" r="3"/></g>
+ <g fill="#c27b3d"><circle cx="37" cy="66" r="5"/><circle cx="52" cy="54" r="5"/><circle cx="67" cy="70" r="5"/><circle cx="82" cy="58" r="5"/><circle cx="97" cy="74" r="5"/></g>
+ <text x="0" y="101" class="small muted">emphasize difficult θ</text>
 </g>
-<g fill="#287b78"><circle cx="548" cy="207" r="6"/><circle cx="752" cy="207" r="6"/><circle cx="548" cy="170" r="6"/><circle cx="752" cy="170" r="6"/></g>
-<path d="M618 223q32-30 64 0v39q-32 30-64 0Z" fill="url(#hull)"/>
-<circle cx="650" cy="242" r="7" fill="#efaa55"/>
-<!-- wind and response strokes -->
-<path d="M330 183c38-20 74-20 110 0m-129 22c31-15 60-15 90 0m427 20c35-19 70-19 106 0" fill="none" stroke="#77a9a4" stroke-width="3" stroke-linecap="round" opacity=".75"/>
-<path d="M302 361c34 0 58-17 76-50m445 124c36 1 61-16 78-48" fill="none" stroke="#df9860" stroke-width="3" stroke-dasharray="4 8" stroke-linecap="round" opacity=".78"/>
-<!-- labels -->
-<g font-family="Inter,Arial,sans-serif" fill="#173b4a">
- <text x="104" y="112" font-size="17" font-weight="700" letter-spacing="2.4">DYNAMICS PARAMETER SPACE</text>
- <text x="104" y="144" font-size="14" fill="#55737a">samples across randomized conditions</text>
- <text x="805" y="506" font-size="17" font-weight="700" letter-spacing="2">HOVER REFERENCE</text>
- <text x="805" y="532" font-size="14" fill="#55737a">robustness evaluated over a fixed grid</text>
+
+<!-- bottom-left: scale exposure -->
+<rect x="52" y="309" width="416" height="260" rx="16" class="box"/>
+<text x="78" y="344" class="label">2 · RANDOMIZE ARM SCALE</text>
+<path d="M94 480H211" class="axis"/>
+<path d="M94 480V382" class="axis"/>
+<text x="212" y="500" class="small muted">scale L/L₀</text>
+<text x="83" y="378" class="small muted">p(θ)</text>
+<path d="M96 473c25-2 30-15 47-39 19-28 25-41 39-42 17-1 22 21 30 43 8 24 15 37 33 39" fill="none" stroke="#287b78" stroke-width="3"/>
+<path d="M96 473c25-2 30-15 47-39 19-28 25-41 39-42 17-1 22 21 30 43 8 24 15 37 33 39" fill="#287b78" opacity=".08"/>
+<path d="M103 454 252 390" class="soft"/>
+<text x="278" y="393" class="math">xₛ = log(L/L₀)</text>
+<text x="278" y="421" class="small muted">appended to policy input</text>
+<rect x="277" y="445" width="152" height="63" rx="10" fill="#f3f7f5" stroke="#cddbd7"/>
+<text x="353" y="470" text-anchor="middle" class="label">SSE mask</text>
+<text x="353" y="492" text-anchor="middle" class="small muted">keep p = 0.9 in training</text>
+
+<!-- bottom-right: scale concat network -->
+<rect x="492" y="309" width="656" height="260" rx="16" class="box"/>
+<text x="518" y="344" class="label">3 · CONCATENATE SCALE THROUGH THE MLP</text>
+<g>
+ <rect x="524" y="385" width="110" height="72" rx="9" fill="#f3f7f5" stroke="#cddbd7"/>
+ <text x="579" y="414" text-anchor="middle" class="label">obs x</text>
+ <text x="579" y="438" text-anchor="middle" class="small muted">state features</text>
+ <rect x="524" y="477" width="110" height="55" rx="9" fill="#fff4e6" stroke="#e6c99d"/>
+ <text x="579" y="500" text-anchor="middle" class="label">xₛ</text>
+ <text x="579" y="520" text-anchor="middle" class="small muted">scale</text>
+ <path d="M636 420H681" class="flow"/>
+ <path d="M636 504 659 504 659 448 681 448" class="flow"/>
+ <rect x="693" y="392" width="112" height="75" rx="9" fill="#edf5f2" stroke="#c2d7d1"/>
+ <text x="749" y="421" text-anchor="middle" class="label">Layer 1</text>
+ <text x="749" y="446" text-anchor="middle" class="math">h₁</text>
+ <path d="M807 420H851" class="flow"/>
+ <path d="M636 504 841 504 841 450 851 450" class="flow"/>
+ <rect x="863" y="392" width="112" height="75" rx="9" fill="#edf5f2" stroke="#c2d7d1"/>
+ <text x="919" y="421" text-anchor="middle" class="label">Layer 2</text>
+ <text x="919" y="446" text-anchor="middle" class="math">h₂</text>
+ <path d="M977 429H1010" class="flow"/>
+ <rect x="1022" y="392" width="96" height="75" rx="9" fill="#287b78"/>
+ <text x="1070" y="423" text-anchor="middle" class="label" fill="#fff">policy</text>
+ <text x="1070" y="447" text-anchor="middle" class="math" fill="#fff">a</text>
+ <text x="851" y="510" text-anchor="middle" class="small muted">xₛ is concatenated at every layer input</text>
 </g>
-<g fill="none" stroke="#173b4a" stroke-width="2" opacity=".35">
- <path d="M312 121h85l92 42"/><path d="M788 454h52l62 45"/>
-</g>
+<text x="820" y="546" text-anchor="middle" class="small muted">At evaluation, the true scale feature is always supplied.</text>
 </svg>
