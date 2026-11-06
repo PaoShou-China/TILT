@@ -7,6 +7,7 @@ configuration.
 from __future__ import annotations
 
 from dataclasses import dataclass
+import math
 from pathlib import Path
 
 
@@ -23,11 +24,16 @@ class TiltProtocol:
     eval_max_steps: int = 1500
 
     def validate(self) -> "TiltProtocol":
+        if type(self.seed) is not int or not 0 <= self.seed <= 2**32 - 1:
+            raise ValueError("seed must be an integer between 0 and 4294967295")
         for name in (
             "num_envs", "num_eval_envs", "iterations_per_round", "total_rounds",
-            "episodes_per_eval", "final_eval_episodes", "eval_max_steps",
+            "episodes_per_eval", "final_eval_episodes", "eval_seed", "eval_max_steps",
         ):
-            if getattr(self, name) <= 0:
+            value = getattr(self, name)
+            if type(value) is not int:
+                raise ValueError(f"{name} must be an integer")
+            if value <= 0:
                 raise ValueError(f"{name} must be a positive integer")
         return self
 
